@@ -58,11 +58,11 @@ public class SenderModule {
                 String message = "Hello World => " + i;
 
                 /** basicPublish : 메시지를 발행(Public)하는 메서드
-                 * channel.basicPublish(String ecchange, String routingKey, boolean mandatory,
+                 * channel.basicPublish(String exchange, String routingKey, boolean mandatory,
                  *          AMQP.BasicProperties props, byte[] body)
                  * exchange : 메시지를 발행하는 거래소
-                 *         => "" 빈값으로 보내게 되면 기본 교환으로 인식된다.
-                 *         => 라우팅키가 있는경우 해당 이름이 지정된 Queue로 메시지가 라우팅된다.
+                 *         => "" 빈값으로 보내게 되면 routingKey값으로 라우팅된다.
+                 *         => 즉 exchange가 있거나 routingKey값이 있어야한다.
                  * routingKey : 라우팅 키
                  * mandatory : 필수 여부
                  * props : 라우팅 헤더 등 메시지의 다른 속성들
