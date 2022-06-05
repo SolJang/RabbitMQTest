@@ -25,17 +25,49 @@ public class HeaderSender {
         try(Connection con = factory.newConnection(); Channel channel = con.createChannel()) {
             // 1. fanout exchange 생성
             channel.exchangeDeclare(HEADER_EXCHANGE_NAME, ExchangeTypes.HEADERS);
-            Map<String, Object> headers = new HashMap<String, Object>();
-            headers.put("x-match", "any");
-            headers.put("key1", "A");
-            headers.put("key2", "B");
+            Map<String, Object> headers = null;
+            headers = new HashMap<String, Object>();
+            headers.put("first", "A");
+            headers.put("fourth", "D");
+            headers.put("third", "C");
+
             AMQP.BasicProperties props = new AMQP.BasicProperties.Builder().headers(headers).build();
-            String message = "header test";
+            String message = "first header message send";
             // 2. Producer 작업
             channel.basicPublish(HEADER_EXCHANGE_NAME,
                     "",
                     props,
                     message.getBytes(StandardCharsets.UTF_8));
+
+
+
+
+            headers = new HashMap<String, Object>();
+            headers.put("third", "C");
+
+            props = new AMQP.BasicProperties.Builder().headers(headers).build();
+            message = "second header message send";
+            // 2. Producer 작업
+//            channel.basicPublish(HEADER_EXCHANGE_NAME,
+//                    "",
+//                    props,
+//                    message.getBytes(StandardCharsets.UTF_8));
+
+
+
+
+
+            headers = new HashMap<String, Object>();
+            headers.put("first", "A");
+            headers.put("third", "C");
+
+            props = new AMQP.BasicProperties.Builder().headers(headers).build();
+            message = "third header message send";
+            // 2. Producer 작업
+//            channel.basicPublish(HEADER_EXCHANGE_NAME,
+//                    "",
+//                    props,
+//                    message.getBytes(StandardCharsets.UTF_8));
 
         }
 
